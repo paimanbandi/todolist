@@ -1,0 +1,51 @@
+version: "3.7"
+
+services:
+    postgres:
+        build:
+            context: ./postgres
+            dockerfile: Dockerfile
+        container_name: c-todolist-postgres
+        image: todolist-postgres:1.0.0
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./data/postgres:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: paiman
+            POSTGRES_PASSWORD: zxcvbnm
+        networks:
+            - n-todolist
+        restart: always
+    backend:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        container_name: c-todolist-backend
+        image: todolist-backend:1.0.0
+        ports:
+            - 5001:5001
+        networks:
+            - n-todolist
+        command: bash -c 'while !</dev/tcp/c-todolist-postgres/5432; do sleep 1; done; node index.js'
+        depends_on:
+            - postgres
+        links:
+            - postgres
+        restart: always
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        container_name: c-todolist-frontend
+        image: todolist-frontend:1.0.0
+        ports:
+            - 5000:5000
+        depends_on:
+            - backend
+        networks:
+                - n-todolist
+        restart: always
+networks:
+    n-todolist:
+        name: n-todolist
