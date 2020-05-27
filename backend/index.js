@@ -28,7 +28,7 @@ app.put('/edit-todo', async (req, res) => {
   editTodo.editTodo(req, res);
 });
 
-app.get('/get-todo', async (req, res) => {
+app.post('/get-todo', async (req, res) => {
   getTodo.getTodo(req, res);
 });
 
