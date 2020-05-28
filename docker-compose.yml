@@ -24,7 +24,7 @@ services:
         container_name: c-todolist-backend
         image: todolist-backend:1.0.0
         ports:
-            - 5001:5001
+            - 6001:6001
         networks:
             - n-todolist
         command: bash -c 'while !</dev/tcp/c-todolist-postgres/5432; do sleep 1; done; node index.js'
@@ -40,11 +40,13 @@ services:
         container_name: c-todolist-frontend
         image: todolist-frontend:1.0.0
         ports:
-            - 5000:5000
+            - 6000:6000
         depends_on:
             - backend
         networks:
                 - n-todolist
+        volumes:
+            - ./frontend:/usr/src/app
         restart: always
 networks:
     n-todolist:

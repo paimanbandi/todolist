@@ -1,5 +1,7 @@
 # todolist
 
+Very simple to-do list app using React, Node.js, Postgres and Docker.
+
 ## Installation
 
 ```bash

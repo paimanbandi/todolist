@@ -3,4 +3,4 @@
  *
  */
 
-export const apiHost = 'http://localhost:5001/'
+export const apiHost = 'localhost:6001/'

@@ -40,5 +40,5 @@ app.get('/display-todos', async (req, res) => {
   displayTodos.displayTodos(req, res);
 });
 
-const port = process.env.BE_PORT || 5001;
+const port = process.env.BE_PORT || 6001;
 app.listen(port, () => console.log("todolist-backend running on port " + port));
